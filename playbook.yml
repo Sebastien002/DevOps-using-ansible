@@ -1,0 +1,177 @@
+- hosts: web
+
+  become: yes
+
+  
+
+  vars:
+
+    python_apps_location: /usr/local/opt/python
+
+
+
+  tasks:
+
+  - name: "apt-get update"
+
+    apt:
+
+      update_cache: yes
+
+      cache_valid_time: 3600
+
+
+
+  - name: "install nginx"
+
+    apt:
+
+      name: ['nginx']
+
+      state: latest
+
+
+
+  - name: "create www directory"
+
+    file:
+
+      path: /var/www/{{ domain }}
+
+      state: directory
+
+      mode: '0775'
+
+      owner: "{{ ansible_user }}"
+
+      group: "{{ ansible_user }}"
+  - name: delete default nginx site
+
+    file:
+
+      path: /etc/nginx/sites-enabled/default
+
+      state: absent
+
+    notify: restart nginx
+
+
+
+  - name: copy nginx conf
+
+    template:
+
+      src: site.conf
+
+      dest: /etc/nginx/sites-enabled/{{ domain }}
+
+      owner: root
+
+      group: root
+
+      mode: '0644'
+
+    notify: restart nginx
+
+
+
+  - name: Install Node.js and npm.
+
+    apt: name=npm state=latest
+
+
+
+  - name: Install Forever (to run our python app).
+
+    npm: name=forever global=yes state=latest
+
+
+  - name: Check for Python
+
+    raw: sudo test -e /usr/bin/python3
+
+    changed_when: false
+
+    failed_when: false
+
+    register: check_python
+
+  - name: Install Python
+
+    raw: sudo apt-get install -y python3.8
+
+    when: check_python.rc != 0
+
+
+
+  - name: Ensure python app folder exists.
+
+    file: "path={{ python_apps_location }} state=directory"
+
+
+
+  - name: Copy python app to server.
+
+
+
+    copy: "src=app dest={{ python_apps_location }}"
+
+
+
+  - name: Check list of running python  apps.
+
+
+
+    command: forever list
+
+
+
+    register: forever_list
+
+
+
+    changed_when: false
+
+
+
+
+    register: check_python
+
+  - name: Install Python
+
+    raw: sudo apt-get install -y python3.8
+
+    when: check_python.rc != 0
+
+
+
+  - name: Ensure python app folder exists.
+
+    file: "path={{ python_apps_location }} state=directory"
+
+
+
+  - name: Copy python app to server.
+
+
+
+    copy: "src=app dest={{ python_apps_location }}"
+
+
+
+  - name: Check list of running python  apps.
+
+
+
+    command: forever list
+
+
+
+    register: forever_list
+
+
+
+    changed_when: false
+
+
+
