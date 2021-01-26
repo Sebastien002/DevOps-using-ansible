@@ -10,4 +10,4 @@ sudo git clone https://github.com/SmartDeveloper333/DevOps-using-ansible
 
 cd DevOps-using-ansible
 
-asible-playbook -i inventory.yml playbook.yml
+ansible-playbook -i inventory.yml playbook.yml
