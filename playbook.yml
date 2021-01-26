@@ -58,7 +58,7 @@
     register: forever_list
     changed_when: false
 
-   - name: Start python app.
+  - name: Start python app.
 
     command: "forever start -c python3 {{ python_apps_location }}/app/server.py"
 
