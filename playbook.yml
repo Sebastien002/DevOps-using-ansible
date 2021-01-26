@@ -43,6 +43,12 @@
   - name: Install Forever (to run our python app).
     npm: name=forever global=yes state=latest
 
+  - name: Check for Python
+    raw: sudo test -e /usr/bin/python3
+    changed_when: false
+    failed_when: false
+    register: check_python
+
   - name: Install Python
     raw: sudo apt-get install -y python3.8
     when: check_python.rc != 0
