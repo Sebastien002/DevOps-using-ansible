@@ -7,5 +7,5 @@ web:
 
     domain: gestion.opustv.live
     ansible_connection: ssh
-    ansible_user: ubuntu
-    ansible_ssh_pass: eT6kwPUqdVBA
+    ansible_user: [username]
+    ansible_ssh_pass: [password]
