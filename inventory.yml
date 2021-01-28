@@ -1,7 +1,7 @@
 web:
   
   hosts:
-    gestion.opustv.live
+    146.59.230.26
 
   vars:
 
