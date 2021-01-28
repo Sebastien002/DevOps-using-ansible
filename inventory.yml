@@ -1,12 +1,12 @@
 web:
   
   hosts:
-    ec2-18-218-249-48.us-east-2.compute.amazonaws.com
+    gestion.opustv.live
 
   vars:
 
-    domain: ec2-18-218-249-48.us-east-2.compute.amazonaws.com
+    domain: gestion.opustv.live
 
     ansible_user: ubuntu
 
-    ansible_ssh_private_key_file: /home/privatekey.pem
+    ansible_ssh_pass: eT6kwPUqdVBA
