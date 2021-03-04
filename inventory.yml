@@ -1,11 +1,11 @@
 web:
   
   hosts:
-    146.59.230.26
+    [host]
 
   vars:
 
-    domain: gestion.opustv.live
+    domain: [domain]
     ansible_connection: ssh
     ansible_user: [username]
     ansible_ssh_pass: [password]
